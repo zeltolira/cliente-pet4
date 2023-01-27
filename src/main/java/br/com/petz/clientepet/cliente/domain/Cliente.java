@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +22,8 @@ import lombok.NoArgsConstructor;
 public class Cliente {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, unique = true, nullable = false)
 	private UUID idCliente;
 	@NotBlank
 	private String nomeCompleto;
@@ -41,7 +46,6 @@ public class Cliente {
 	public Cliente(UUID idCliente, @NotBlank String nomeCompleto, @NotBlank @Email String email,
 			@NotBlank String celular, String telefone, Sexo sexo, @NotNull LocalDate dataNasciemento, @CPF String cpf,
 			Boolean aceitaTermos) {
-		this.idCliente = UUID.randomUUID();
 		this.idCliente = idCliente;
 		this.nomeCompleto = nomeCompleto;
 		this.email = email;
